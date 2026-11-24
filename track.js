@@ -16,41 +16,29 @@ form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     let searchID = document.getElementById("tracking-id").value.trim();
-
     let result = document.getElementById("tracking-result");
 
     result.textContent = "Searching...";
 
     try {
-        // Wait for authentication
-        await ensureAnonymousAuth;
+        await ensureAnonymousAuth();
 
-        // Create Firebase search query
-        let reportQuery = query(
-            ref(db, "reports"),
+        let trackingQuery = query(
+            ref(db, "tracking"),
             orderByChild("id"),
             equalTo(searchID)
         );
 
-        // Get matching reports
-        let snapshot = await get(reportQuery);
+        let snapshot = await get(trackingQuery);
 
         if (snapshot.exists()) {
 
-            let reports = snapshot.val();
-
-            // Get the first matching report
-            let foundReport = Object.values(reports)[0];
+            let trackingData = snapshot.val();
+            let foundReport = Object.values(trackingData)[0];
 
             result.textContent =
                 "Report ID: " + foundReport.id + "\n" +
-                "Title: " + foundReport.title + "\n" +
-                "Type: " + foundReport.type + "\n" +
-                "Description: " + foundReport.description + "\n" +
-                "Location: " + foundReport.location + "\n" +
                 "Status: " + foundReport.status;
-
-            console.log(foundReport);
 
         } else {
 

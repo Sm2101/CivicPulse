@@ -1,9 +1,10 @@
 
 import { db, ensureAnonymousAuth } from "./firebase.js";
+
 import {
     ref,
     push,
-    set
+    update
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 let projectName = "Civic Pulse";
@@ -15,40 +16,52 @@ form.addEventListener("submit", async function(event) {
 
     event.preventDefault();
 
-    let title = document.getElementById("issue-title").value;
+    let title = document.getElementById("issue-title").value.trim();
     let type = document.getElementById("issue-type").value;
-    let description = document.getElementById("description").value;
-    let location = document.getElementById("location").value;
+    let description = document.getElementById("description").value.trim();
+    let location = document.getElementById("location").value.trim();
 
     let reportID = generateReportID();
-
-    let report = {
-        id: reportID,
-        title: title,
-        type: type,
-        description: description,
-        location: location,
-        status: "Pending"
-    };
 
     let message = document.getElementById("success-message");
 
     try {
-
         await ensureAnonymousAuth();
-        let newReportRef = push(ref(db, "reports"));
 
-        await set(newReportRef, report);
+        // Generate one Firebase key for both records
+        let newReportRef = push(ref(db, "reports"));
+        let reportKey = newReportRef.key;
+
+        let updates = {};
+
+        // Store private report details
+        updates["reports/" + reportKey] = {
+            id: reportID,
+            title: title,
+            type: type,
+            description: description,
+            location: location
+        };
+
+        // Store public tracking information
+        updates["tracking/" + reportKey] = {
+            id: reportID,
+            status: "Pending"
+        };
+
+        // Save both records atomically
+        await update(ref(db), updates);
 
         message.textContent =
             "Reported! Your report ID is: " + reportID;
 
-        console.log("Report saved:", report);
+        console.log("Report saved:", reportID);
 
         form.reset();
 
     } catch (error) {
         console.error("Firebase error:", error);
+
         message.textContent =
             "Report could not be submitted. Please try again.";
     }

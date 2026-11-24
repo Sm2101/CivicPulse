@@ -1,5 +1,5 @@
 
-import { db, authReady } from "./firebase.js";
+import { db, ensureAnonymousAuth } from "./firebase.js";
 
 import {
     ref,
@@ -23,7 +23,7 @@ form.addEventListener("submit", async function(event) {
 
     try {
         // Wait for authentication
-        await authReady;
+        await ensureAnonymousAuth;
 
         // Create Firebase search query
         let reportQuery = query(

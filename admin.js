@@ -9,24 +9,26 @@ async function loadReports() {
     await authReady;
 
     let reportsRef = ref(db, "reports");
-
     let snapshot = await get(reportsRef);
-
     let reportsData = snapshot.val();
-
     let reports = reportsData ? Object.values(reportsData) : [];
 
     let adminPanel = document.getElementById("admin-reports");
+
     let total = document.getElementById("total");
     total.textContent = reports.length;
-    let pendingReports = reports.filter(function(reports) {
-    return reports.status === "Pending";
+
+    let pendingReports = reports.filter(function(report) {
+        return report.status === "Pending";
     });
+
     let pending = document.getElementById("pending")
     pending.textContent = pendingReports.length
 
-    let resolved = document.getElementById("resolved")
-    resolved.textContent = reports.length - pendingReports.length
+    let resolvedReports = reports.filter(function(report) {
+        return report.status === "Resolved";
+    });
+    resolved.textContent = resolvedReports.length;
 
     reports.forEach(function(report) {
         console.log(report.title);
@@ -56,3 +58,6 @@ async function loadReports() {
     })
 
 }
+loadReports().catch(function(error) {
+    console.error("Error loading reports:", error);
+});

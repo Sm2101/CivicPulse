@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            CivicPulse
+        </title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>CivicPulse</h1>
+            <p>Every Problem,Needs Solution</p>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="report-issue.html">Report Issue</a></li>
+                <li><a href="track-report.html">Track Report</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Track Your Report</h2>
+            <form id="track-report">
+                <label for="tracking-id">Enter your Report ID:</label>
+                <input type="text" id="tracking-id" name="tracking-id" required>
+                <button type="submit" >Track Report</button>
+            </form>
+            <div id="tracking-result"></div>
+        </main>
+        <script type="module" src="track.js"></script>
+    </body>
+</html>

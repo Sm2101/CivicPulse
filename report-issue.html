@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Report Issue - CivicPulse
+        </title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>CivicPulse</h1>
+            <p>Every Problem,Needs Solution</p>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="report-issue.html">Report Issue</a></li>
+                <li><a href="track-report.html">Track Report</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Report an Issue</h2>
+            <form id="report-form">
+                <label for="issue-title">Issue Title:</label>
+                <input
+                    type="text"
+                    id="issue-title"
+                    name="issue-title"
+                    placeholder="e.g. Broken classroom fan"
+                    required><br><br>
+
+                <label for="issue-type">Issue Type:</label><br>
+                <select id="issue-type" name="issue-type" required>
+                    <option value="">Select an issue type</option>
+                    <option value="pothole">Pothole</option>
+                    <option value="streetlight">Streetlight Outage</option>
+                    <option value="garbage">Garbage Collection</option>
+                    <option value="water-leak">Water Leak</option>
+                </select><br><br>
+
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description" rows="4" cols="50" placeholder="Describe the issue in detail..."></textarea><br><br>
+
+                <label for="location">Location:</label><br>
+                <input type="text" id="location" name="location" placeholder="Enter the location of the issue..." required><br><br>
+
+                <label for="image-upload">Upload Image (optional):</label><br>
+                <input type="file" id="image-upload" name="image-upload" accept="image/*"><br><br>
+                <button type="submit">Submit Report</button>
+            </form> 
+            <div id="success-message"></div>
+        </main>
+
+        <footer>
+            <p>© 2027 CivicPulse. All rights reserved.</p>
+            <p>Made in India</p>
+        </footer>
+        <script type="module" src="report.js"></script>
+    </body>
+</html>

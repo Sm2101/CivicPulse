@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@400;700&display=swap');
+header {
+    background-color: #f3ac8b;
+    border-radius: 20px;
+    margin: 25px;
+    padding: 10px;
+    text-align: center;
+}
+header {
+    transition: 0.3s;
+}
+
+header:hover {
+    text-shadow: 6px 5px 5px #210808;
+    background-color: #b53535;
+    color: #c5eaff;
+}
+body {
+    background-color: #b53535;
+    font-family: 'Patrick Hand', cursive;
+
+}
+main {
+    background-color: #f0986f;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+
+nav {
+    background-color: #ef8c74;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+    padding:0px;
+    margin:0px
+}
+
+nav a {
+    display: block;
+    padding: 2px 4px;
+    background-color: #ff9c6d;
+    border-radius: 10px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #b53535;
+    border-radius: 10px;
+    color: #c5eaff;
+}
+.dashboard-cards {
+    border: 3px solid #000000;
+    background-color: #932929;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+    text-align: center;
+    background-color: #e13f3f;
+    color: #c5eaff;
+    transition: 0.3s ease;
+}
+.card:hover {
+    background-color: #e18b64;
+    color: #000000;
+    transform: translateY(-10px);
+}
+
+@media (max-width: 500px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;
+    }
+}
+#success-message {
+    font-size: 28px;
+    text-align: center;
+    padding: 10px;
+    color: rgb(77, 255, 46);
+    border-radius: 5px;
+}
+#tracking-result {
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px;
+    justify-content: center;
+    white-space: pre-line;
+}
+
+#summary {
+    display: flex;
+    margin: 10px;
+    gap: 20px;
+    flex-wrap: wrap;
+}

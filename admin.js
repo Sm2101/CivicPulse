@@ -1,5 +1,24 @@
-let reports = JSON.parse(localStorage.getItem("civicReports")) || [];
+import { db, authReady } from "./firebase.js";
 
+import {
+    ref, get
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+
+async function loadReports() {
+
+    await authReady;
+
+    let reportsRef = ref(db, "reports");
+
+    let snapshot = await get(reportsRef);
+
+    let reportsData = snapshot.val();
+
+    let reports = reportsData ? Object.values(reportsData) : [];
+
+    // Your existing dashboard code goes here
+
+}
 let adminPanel = document.getElementById("admin-reports");
 let total = document.getElementById("total");
 total.textContent = reports.length;

@@ -1,12 +1,32 @@
-import { db, authReady } from "./firebase.js";
+import { db, auth, authReady } from "./firebase.js";
 
 import {
     ref, get
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
+const adminUID = "7GxQDQPZuHV5PnO7RTjCX3pwkk62";
+
+async function checkAdmin() {
+    await authReady;
+
+    let user = auth.currentUser;
+
+    if (!user || user.uid !== adminUID) {
+        window.location.href = "admin-login.html";
+        return false;
+    }
+
+    return true;
+}
+
+
 async function loadReports() {
 
-    await authReady;
+    let isAdmin = await checkAdmin();
+
+    if (!isAdmin) {
+        return;
+    }
 
     let reportsRef = ref(db, "reports");
     let snapshot = await get(reportsRef);

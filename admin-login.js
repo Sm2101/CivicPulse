@@ -1,12 +1,16 @@
 import { auth } from "./firebase.js";
 
 import {
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
+const adminUID = "7GxQDQPZuHV5PnO7RTjCX3pwkk62";
 let form = document.getElementById("admin-login-form");
 
 let message = document.getElementById("login-message");
+
+message.textContent = "";
 
 form.addEventListener("submit", async function(event) {
         event.preventDefault();
@@ -17,8 +21,19 @@ form.addEventListener("submit", async function(event) {
     let userCredential = await signInWithEmailAndPassword(auth, email, password);
     let user = userCredential.user;
 
+    if (user.uid === adminUID) {
+        message.textContent = "Admin login successful!";
+        window.location.href = "admin.html";
+    } else {
+        message.textContent = "Access denied. You are not an administrator.";
+        await signOut(auth);
+    }
+
     console.log(user.uid);
     } catch(error) {
-        message.textContent = "Something went Wrong."+ error.message;
-    }
+        if (error.code === "auth/invalid-credential") {
+            message.textContent = "Incorrect email or password.";
+        } else {
+            message.textContent = "Login failed. Please try again.";
+        }    }
 });

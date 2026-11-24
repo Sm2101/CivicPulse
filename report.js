@@ -1,6 +1,5 @@
 
-import { db, authReady } from "./firebase.js";
-
+import { db, ensureAnonymousAuth } from "./firebase.js";
 import {
     ref,
     push,
@@ -35,13 +34,10 @@ form.addEventListener("submit", async function(event) {
     let message = document.getElementById("success-message");
 
     try {
-        // Wait for anonymous authentication
-        await authReady;
 
-        // Create a unique Firebase database reference
+        await ensureAnonymousAuth();
         let newReportRef = push(ref(db, "reports"));
 
-        // Save report to Firebase
         await set(newReportRef, report);
 
         message.textContent =

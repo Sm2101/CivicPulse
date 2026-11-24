@@ -4,7 +4,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebas
 import { getDatabase } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 import {
-    getAuth
+    getAuth,
+    signInAnonymously
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -22,4 +23,12 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 const authReady = auth.authStateReady();
 
-export { db, auth, authReady };
+async function ensureAnonymousAuth() {
+    await authReady;
+
+    if (!auth.currentUser) {
+        await signInAnonymously(auth);
+    }
+}
+
+export { db, auth, authReady, ensureAnonymousAuth };
